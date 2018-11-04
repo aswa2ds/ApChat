@@ -1,8 +1,11 @@
 package com.em.apchat.Utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Looper;
+import android.os.Handler;
 import android.util.Log;
 
 import com.em.apchat.MainActivity;
@@ -53,5 +56,29 @@ public class WifiUtils {
                 scanResults.add(scanResult);
             }
         }*/
+    }
+
+    public static void startLocalOnlyHotSpot(){
+        Handler handler = new Handler(Looper.getMainLooper());
+        WifiManager.LocalOnlyHotspotCallback callback = new WifiManager.LocalOnlyHotspotCallback(){
+            @Override
+            public void onStarted(WifiManager.LocalOnlyHotspotReservation reservation) {
+                super.onStarted(reservation);
+                Log.d(TAG, "Wifi Hotspot is on now");
+            }
+
+            @Override
+            public void onStopped() {
+                super.onStopped();
+                Log.d(TAG, "onStopped: ");
+            }
+
+            @Override
+            public void onFailed(int reason) {
+                super.onFailed(reason);
+                Log.d(TAG, "onFailed: ");
+            }
+        }
+        wifiManager.startLocalOnlyHotspot(callback, handler);
     }
 }

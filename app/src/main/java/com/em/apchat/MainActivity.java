@@ -35,5 +35,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate: SSID:" + scanResult.SSID + " BSSID:" + scanResult.BSSID);
         }
 
+
     }
 }
